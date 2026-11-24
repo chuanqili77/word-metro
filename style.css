@@ -25,6 +25,9 @@ aside{background:#d9f7ec;margin-bottom:24px}.section-head,.controls,form#find{di
 h2{margin:0 0 10px;font-size:1.55rem;letter-spacing:-.055em}
 button,select,input{font:inherit;color:inherit;border:2px solid var(--ink);background:#fffaf3;padding:8px 12px;min-height:42px;border-radius:4px}
 button{cursor:pointer;font-weight:800}button:hover:not(:disabled){background:var(--yellow)}button:disabled{opacity:.48;cursor:default}.primary{background:var(--mint)}
+#wallet-toggle{background:var(--mint);color:var(--ink)}
+#wallet-toggle:hover,#wallet-toggle[aria-expanded="true"]{background:var(--yellow)}
+#wallet-toggle:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
 label{display:grid;font-size:.83rem;font-weight:750;gap:4px}input{width:100%}#race-id{width:110px}
 #open{display:grid;gap:10px}#race{padding:14px 0}#races{margin-top:12px}
 #stations{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#stations input{width:75px;text-transform:uppercase;letter-spacing:.08em}

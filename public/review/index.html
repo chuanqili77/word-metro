@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Word Metro viewport check</title>
+<style>
+body { margin: 16px; font: 16px system-ui; background: #e9e0ef; }
+iframe { border: 0; transform-origin: top left; background: #fff6ea; display: block; }
+</style>
+</head>
+<body>
+<h1>Word Metro viewport check</h1>
+<nav><a href="?width=1440">1440 px desktop</a> · <a href="?width=390">390 px mobile layout</a></nav>
+<p id="dimensions"></p>
+<iframe title="Word Metro at the selected layout width"></iframe>
+<script>
+const params = new URLSearchParams(location.search);
+const width = params.get('width') === '390' ? 390 : 1440;
+const height = width === 390 ? 844 : 1000;
+const frame = document.querySelector('iframe');
+const race = params.get('race');
+frame.width = width;
+frame.height = height;
+frame.src = '../' + (/^\d+$/.test(race || '') ? '?race=' + race : '');
+function resize() {
+  const scale = Math.min(1, (innerWidth - 32) / width);
+  frame.style.transform = 'scale(' + scale + ')';
+  document.querySelector('#dimensions').textContent = width + ' × ' + height + ' CSS pixels · ' + Math.round(scale * 100) + '% capture scale';
+}
+window.addEventListener('resize', resize);
+resize();
+</script>
+</body>
+</html>

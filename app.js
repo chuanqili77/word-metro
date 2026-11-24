@@ -12,6 +12,7 @@ let wallet;
 let race;
 let raceId;
 let busy = false;
+let requiresRefresh = false;
 let readVersion = 0;
 
 function node(tag, text, parent) {
@@ -23,11 +24,13 @@ function node(tag, text, parent) {
 const same = (a, b) => a?.toLowerCase() === b?.toLowerCase();
 function message(text, hash) {
   $('message').textContent = text;
-  if (hash) $('tx').href = explorer + '/transactions/' + hash;
-  $('tx').hidden = !hash;
+  if (hash) {
+    $('tx').href = explorer + '/transactions/' + hash;
+    $('tx').hidden = false;
+  }
 }
 function permissions() {
-  const enabled = !busy && wallet?.network === 61999;
+  const enabled = !busy && !requiresRefresh && wallet?.network === 61999;
   const host = race && wallet && same(race.host, wallet.address);
   $('fund').hidden = !wallet?.account;
   $('publish').disabled = !enabled;
@@ -37,7 +40,7 @@ function permissions() {
   for (const id of ['reload', 'race-id', 'demo', 'disconnect', 'reset', 'switch', 'demo-list', 'fund'])
     $(id).disabled = busy;
   document.querySelectorAll('[data-wallet], #find button, #races button').forEach(button => button.disabled = busy);
-  $('rule').textContent = host ? 'Hosts cannot compete in their own race.' :
+  $('rule').textContent = requiresRefresh ? 'Refresh finalized state before submitting again.' : host ? 'Hosts cannot compete in their own race.' :
     enabled ? 'Verification can lock this race for your wallet.' : 'Connect a player wallet on Studionet to submit.';
 }
 
@@ -189,6 +192,7 @@ async function refresh(id, offset = 0) {
     return { number, ...JSON.parse(await read(address, 'get_attempt', [BigInt(selected), BigInt(number)])) };
   }));
   if (version !== readVersion) return;
+  requiresRefresh = false;
   const keepDraft = raceId === selected && race?.phase === 'OPEN' && result?.phase === 'OPEN';
   raceId = selected;
   race = result;
@@ -239,7 +243,7 @@ $('find').onsubmit = event => { event.preventDefault(); void browse($('race-id')
 $('contract').href = explorer + '/address/' + address;
 
 async function transact(description, method, args, after, outcome = () => '') {
-  if (busy || !wallet) return;
+  if (busy || requiresRefresh || !wallet) return;
   const chosen = wallet;
   const signer = chosen.address;
   if (chosen.network !== 61999) return message('Switch to Stable Studionet first.');
@@ -270,6 +274,7 @@ async function transact(description, method, args, after, outcome = () => '') {
       await refresh(after);
       message('Finalized · Execution succeeded. ' + outcome(), hash);
     } catch {
+      requiresRefresh = true;
       message('Execution succeeded. Finalized data could not be refreshed. Use Refresh before taking another action.', hash);
     }
   } catch (error) {

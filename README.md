@@ -16,11 +16,11 @@ Use MetaMask or OKX via the wallet desk, or create in-memory Demo / Test Wallets
 
 The contract locks the race parameters after creation. A route uses unique four-letter lowercase ASCII terms, with exactly one changed character per hop. The lexicon is the English Wiktionary site's main article namespace. Any existing exact title qualifies, including entries describing other languages. Every validator independently fetches one MediaWiki query and agrees via strict equality on the ordered page IDs. Zero means the API explicitly reported a missing title. Unexpected, incomplete or unavailable data cannot be counted as a missing title. A rejected lexical route is distinct from a reverted transaction.
 
-On-chain race states are OPEN, SOLVED and CLOSED. The race stores the host, endpoints, page IDs, move limit and winner. Each receipt records the signer, words, corresponding page IDs and score outcome. A repeated route from the same signer is rejected. Successful writes are followed by a latest-final read. Entries and winning routes are public, and server-side dictionary entries can change after a race.
+On-chain race states are OPEN, SOLVED and CLOSED. The race stores the host, endpoints, page IDs, move limit and winner. Each receipt records the signer, words, corresponding page IDs and verification outcome. A repeated route from the same signer is rejected. Successful writes are followed by a latest-final read. Entries and winning routes are public, and server-side dictionary entries can change after a race.
 
 ## Develop and reproduce
 
-Use Node.js 24 and Python 3. SDK and dependency versions are pinned in the npm lockfile.
+Use Node.js 24 and Python 3.12. SDK and dependency versions are pinned in the npm lockfile.
 
 ```sh
 npm ci
@@ -36,5 +36,12 @@ Passing the deployment hash checks the existing deployment and compares the down
 ## Verified race
 
 [Open race 1](https://chuanqili77.github.io/word-metro/?race=1). Two browser Demo wallets signed on Studionet. XOLD and XORD were missing, so the first route was recorded without advancing the race. The exact replay reverted and added no receipt. COLD → CORD → CARD → WARD → WARM then certified and locked the winner.
+
+The five Studionet transaction records can be opened directly:
+- [Contract deployment](https://explorer-studio.genlayer.com/tx/0xa9f89217b1e5f425e6f7c51bc526beea2cee68f0cf8d33ac8d2e3e4e21501f8f)
+- [Race creation](https://explorer-studio.genlayer.com/tx/0xb3f6102b3d6f94cfb2bdb0a340bf3553a274bf6901da8d88e923983f665d622e)
+- [Missing-station route](https://explorer-studio.genlayer.com/tx/0xbac2dcadfa6310fd41e57ff8f249531c9491b666785441752c904bc64dc6f177)
+- [Duplicate replay (reverted)](https://explorer-studio.genlayer.com/tx/0xdf90339ddc73d3d840cab4cebe3cc6b6a23cde00cc3fd61e446ead1c3500beb2)
+- [Certified winning route](https://explorer-studio.genlayer.com/tx/0x6423bf1bc861c181494312f9ed50b3a394f21b15bec37e554d976a7f4f8bd3fd)
 
 Run `node scripts/verify.mjs` to recheck the source, the deployment, the four signed race transactions and latest-final state. See the [readback and receipts](evidence/studionet.json) and the [viewport test notes](evidence/VIEWPORTS.md). Live extension signing and physical-device testing were outside the browser evidence.

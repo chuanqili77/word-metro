@@ -25,14 +25,14 @@ function node(tag, text, parent) {
 const same = (a, b) => a?.toLowerCase() === b?.toLowerCase();
 function receipt(parent, text, hash) {
   const link = node('a', text, parent);
-  link.href = explorer + '/transactions/' + hash;
+  link.href = explorer + '/tx/' + hash;
   link.target = '_blank';
   link.rel = 'noopener';
 }
 function message(text, hash) {
   $('message').textContent = text;
   if (hash) {
-    $('tx').href = explorer + '/transactions/' + hash;
+    $('tx').href = explorer + '/tx/' + hash;
     $('tx').hidden = false;
   }
 }

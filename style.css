@@ -1,0 +1,33 @@
+:root{font-family:system-ui,sans-serif;color:#1a1730;background:#fff6ea;line-height:1.5;--ink:#1a1730;--paper:#fff6ea;--mint:#67e3bd;--pink:#fb83ba;--yellow:#ffb54a}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px max(5vw,20px);background:var(--ink);color:var(--paper);gap:10px}
+.brand{color:inherit;text-decoration:none;font-weight:950;letter-spacing:.13em}.brand b{color:var(--mint);margin-right:7px}
+main{max-width:1300px;margin:auto;padding:32px 24px 64px}
+.hero{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--ink);box-shadow:7px 7px var(--ink);margin-bottom:32px}
+.poster{padding:clamp(22px,5vw,68px);background:var(--pink)}
+.eyebrow,.board-top{font-size:.72rem;font-weight:900;letter-spacing:.15em}
+h1{font-size:clamp(4rem,9vw,8rem);line-height:.78;letter-spacing:-.09em;margin:34px 0;font-weight:950}
+h1 em{font-style:normal;color:var(--paper);text-shadow:3px 3px var(--ink)}
+.poster p:last-child{max-width:33ch}
+.line-board{background:var(--ink);color:var(--paper);display:grid;align-content:space-between;min-width:0}
+.board-top,#line-label{padding:14px 20px;display:flex;justify-content:space-between;gap:12px}
+#line-label{font-weight:850;color:var(--mint);font-size:1.16rem}
+svg{width:100%;display:block}
+svg path{fill:none;stroke-width:13;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;animation:trace 1.6s ease-out both}
+@keyframes trace{from{stroke-dashoffset:900}}
+@media(prefers-reduced-motion:reduce){svg path{animation:none}}
+.desk{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.platform,.host,aside,#status{border:2px solid var(--ink);padding:20px;min-width:0}
+.host{background:#eee7ff;align-self:start}.host a{display:inline-block;margin-top:16px}
+aside{background:#d9f7ec;margin-bottom:24px}.section-head,.controls,form#find{display:flex;align-items:end;justify-content:flex-start;gap:8px;flex-wrap:wrap}.section-head{align-items:center;justify-content:space-between}
+h2{margin:0 0 10px;font-size:1.55rem;letter-spacing:-.055em}
+button,select,input{font:inherit;color:inherit;border:2px solid var(--ink);background:#fffaf3;padding:8px 12px;min-height:42px;border-radius:4px}
+button{cursor:pointer;font-weight:800}button:hover:not(:disabled){background:var(--yellow)}button:disabled{opacity:.48;cursor:default}.primary{background:var(--mint)}
+label{display:grid;font-size:.83rem;font-weight:750;gap:4px}input{width:100%}#race-id{width:110px}
+#open{display:grid;gap:10px}#race{padding:14px 0}#races{margin-top:12px}
+#stations{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#stations input{width:75px;text-transform:uppercase;letter-spacing:.08em}
+details{border-top:1px solid #b4a5b6;padding:10px 0}summary{cursor:pointer;font-weight:750}a{color:inherit}p,li,dt,dd,#identity,#message{overflow-wrap:anywhere}
+#status{margin-top:20px;background:#ffe3b8;position:sticky;bottom:0;z-index:1}#status p{margin:0}
+@media(max-width:700px){main{padding:18px 16px 40px}.hero,.desk{grid-template-columns:1fr}.hero{box-shadow:4px 4px var(--ink)}.poster{padding:22px}.hero{margin-bottom:22px}.platform,.host{padding:14px}.brand{letter-spacing:.06em}}

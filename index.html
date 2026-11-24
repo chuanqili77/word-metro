@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1a1730"><title>Word Metro</title></head>
+<body>
+<header><a class="brand" href="./"><b>✳</b> WORD METRO</a><button id="wallet-toggle" aria-expanded="false">Connect Wallet</button></header>
+<main>
+<section class="hero">
+  <div class="poster"><p class="eyebrow">THE FOUR-LETTER TRANSIT CLUB</p><h1>Mind<br>the <em>word.</em></h1><p>Change one letter at each station. Find a route that the lexicon can verify before another player gets there.</p></div>
+  <div class="line-board"><div class="board-top"><span>LIVE LINE MAP</span><span>STUDIONET 61999</span></div><svg viewBox="0 0 460 220" aria-hidden="true"><path d="M-10 30H120L250 160H470" stroke="#ffb54a"/><path d="M-10 185H110L255 40H470" stroke="#fb83ba"/><path d="M45 -12V109L135 199H470" stroke="#a996ff"/><path d="M370 -12V85L280 175V230" stroke="#67e3bd"/><g fill="#1a1730" stroke="#fff6ea" stroke-width="4"><circle cx="45" cy="30" r="9"/><circle cx="162.5" cy="72.5" r="9"/><circle cx="184" cy="111" r="10"/><circle cx="280" cy="199" r="9"/><circle cx="370" cy="40" r="9"/><circle cx="370" cy="160" r="9"/></g></svg><div id="line-label">Pick a race below</div></div>
+</section>
+<aside id="wallet-panel" hidden>
+<h2>Wallet desk</h2><div class="controls"><button data-wallet="MetaMask">MetaMask</button><button data-wallet="OKX Wallet">OKX Wallet</button><button id="demo">Create Demo / Test Wallet</button><select id="demo-list" aria-label="Switch Demo wallet" hidden></select><button id="switch" hidden>Switch to Studionet</button><button id="fund" hidden>Request test GEN</button><button id="disconnect">Disconnect</button><button id="reset">Reset Demo wallets</button></div><p id="identity">No wallet connected.</p>
+</aside>
+<section class="desk">
+  <div class="platform"><div class="section-head"><h2>Race platform</h2><button id="reload">Refresh</button></div><form id="find"><label>Race number<input id="race-id" type="number" min="1" required></label><button>Find race</button></form><div id="races" class="controls"></div><div id="race"><p>Loading finalized races…</p></div>
+  <form id="route" hidden><h3>Edit your route</h3><p>Each neighboring station must differ by one letter.</p><div id="stations"></div><div class="controls"><button id="add" type="button">Add station</button><button id="remove" type="button">Remove station</button><button class="primary" id="submit-route">Verify route</button></div><p id="rule"></p></form><button id="close" hidden>Close race</button><div id="history"></div></div>
+  <div class="host"><h2>Open a line</h2><p>Set two Wiktionary stations and a move budget. Share the race number with players after finality.</p><form id="open"><label>Start<input name="start" required pattern="[A-Za-z]{4}" placeholder="COLD" maxlength="4"></label><label>Finish<input name="finish" required pattern="[A-Za-z]{4}" placeholder="WARM" maxlength="4"></label><label>Max moves<input name="steps" required type="number" min="2" max="6" value="6"></label><button class="primary" id="publish">Publish race</button></form><a id="contract">View contract</a></div>
+</section>
+<section id="status" aria-live="polite"><p id="message">Browsing finalized state.</p><a id="tx" hidden target="_blank" rel="noopener">Open transaction in Explorer ↗</a></section>
+</main><script type="module" src="/app.js"></script></body></html>

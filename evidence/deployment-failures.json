@@ -1,0 +1,4 @@
+[
+  {"sdk":"0.28.7","evmHash":"0xb4f862275b958cd592047370e1293dc4f28d96dc71d26caedd978e827a31d6f3","status":"REVERTED"},
+  {"sdk":"1.1.8","evmHash":"0x38432fad92a70011d6275baa6125e8b8effa1404af575ba67dc5bdfd9c035d7b","status":"REVERTED","revertReason":"FeesDistributionMissing"}
+]

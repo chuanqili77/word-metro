@@ -1,21 +1,21 @@
 {
   "name": "word-metro",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Wiktionary-verified word ladder race on Stable Studionet",
   "scripts": {
     "build": "vite build --base=./",
     "dev": "vite",
-    "test": "python -m unittest discover -s tests"
+    "test": "python -m unittest discover -s tests",
+    "verify": "node scripts/verify.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
     "genlayer-js": "2.0.0",
-    "viem": "2.38.6",
-    "vite": "7.2.2"
+    "viem": "2.58.6"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "vite": "7.3.8"
+  }
 }

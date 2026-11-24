@@ -16,7 +16,7 @@ console.log(tx.statusName, tx.txExecutionResultName);
 assert(succeeded(tx), JSON.stringify(tx, (_, v) => typeof v === 'bigint' ? String(v) : v));
 const address = tx.data.contract_address;
 assert.equal(await reader.getContractCode(address), code);
-assert.equal(Number(await read(address, 'race_count')), 0);
+if (!process.argv[2]) assert.equal(Number(await read(address, 'race_count')), 0);
 await writeFile('deployment.json', JSON.stringify({
   address, hash, chainId: 61999, status: tx.statusName, execution: tx.txExecutionResultName,
   sourceSha256: createHash('sha256').update(code).digest('hex'),

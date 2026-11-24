@@ -1,0 +1,10 @@
+{
+  "raceId": 1,
+  "walletMode": "Browser Demo / Test Wallet",
+  "host": "0xA91716781A87361caEb1697d0945B5b57FD68891",
+  "player": "0x3397ddadA41CA62C5315cC3D5a15643D133d691b",
+  "opened": "0xb3f6102b3d6f94cfb2bdb0a340bf3553a274bf6901da8d88e923983f665d622e",
+  "missingStation": "0xbac2dcadfa6310fd41e57ff8f249531c9491b666785441752c904bc64dc6f177",
+  "duplicate": "0xdf90339ddc73d3d840cab4cebe3cc6b6a23cde00cc3fd61e446ead1c3500beb2",
+  "certified": "0x6423bf1bc861c181494312f9ed50b3a394f21b15bec37e554d976a7f4f8bd3fd"
+}

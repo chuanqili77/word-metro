@@ -1,6 +1,7 @@
 import { createAccount, createClient } from 'genlayer-js';
 import { formatEther } from 'viem';
 import deployment from './deployment.json';
+import demoRace from './evidence/demo-race.json';
 import { chain, reader, rpc, read, finality, succeeded, explorer, transactionFees, fundTestWallet } from './chain.js';
 import './style.css';
 
@@ -22,6 +23,12 @@ function node(tag, text, parent) {
   return element;
 }
 const same = (a, b) => a?.toLowerCase() === b?.toLowerCase();
+function receipt(parent, text, hash) {
+  const link = node('a', text, parent);
+  link.href = explorer + '/transactions/' + hash;
+  link.target = '_blank';
+  link.rel = 'noopener';
+}
 function message(text, hash) {
   $('message').textContent = text;
   if (hash) {
@@ -212,12 +219,19 @@ async function refresh(id, offset = 0) {
     node('p', result.winner ? 'Winner ' + result.winner : result.phase === 'CLOSED' ? 'The host closed the race.' : 'First verified route wins.', $('race'));
     const link = node('a', 'Shareable race link', $('race'));
     link.href = '?race=' + selected;
+    const documented = selected === demoRace.raceId && same(result.host, demoRace.host);
+    if (documented) {
+      const meta = node('p', 'Verified example · ', $('race'));
+      receipt(meta, 'Opening transaction ↗', demoRace.opened);
+    }
     if (!keepDraft) renderStations([result.start, '', result.finish]);
     node('h3', 'Route receipts · ' + result.attempts, $('history'));
     for (const row of rows) {
       const details = node('details', '', $('history'));
       node('summary', '#' + row.number + ' · ' + (row.result === 'CERTIFIED' ? 'Verified' : 'Missing station'), details);
       node('p', 'Submitted by ' + row.player, details);
+      const hash = [demoRace.missingStation, demoRace.certified][row.number - 1];
+      if (documented && hash && same(row.player, demoRace.player)) receipt(details, 'Transaction ↗', hash);
       const list = node('ul', '', details);
       row.words.forEach((word, i) => {
         const item = node('li', word.toUpperCase() + (row.pages[i] ? ' · ' : ' · no matching Wiktionary page'), list);
@@ -268,7 +282,7 @@ async function transact(description, method, args, after, outcome = () => '') {
     if (!succeeded(tx)) {
       const reason = method === 'open_race' ? 'Check that both stations exist and the move limit is valid. The lexicon may also be temporarily unavailable.' :
         'Refresh the race and check eligibility, route rules and previous submissions before retrying.';
-      return message('Transaction did not execute successfully. ' + tx.statusName + ' · ' + (tx.txExecutionResultName || 'unknown') + '. ' + (typeof tx.reason === 'string' && tx.reason ? tx.reason : reason), hash);
+      return message('Transaction did not execute successfully. ' + tx.statusName + ' · ' + (tx.txExecutionResultName || 'unknown') + '. ' + (typeof tx.reason === 'string' && !/^exit_code/.test(tx.reason) && tx.reason ? tx.reason : reason), hash);
     }
     try {
       await refresh(after);

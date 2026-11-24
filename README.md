@@ -32,3 +32,9 @@ node scripts/deploy.mjs 0xa9f89217b1e5f425e6f7c51bc526beea2cee68f0cf8d33ac8d2e3e
 ```
 
 Passing the deployment hash checks the existing deployment and compares the downloaded contract source byte for byte. See [lint evidence](evidence/genvm-lint.txt) and [deployment failures](evidence/deployment-failures.json).
+
+## Verified race
+
+[Open race 1](https://chuanqili77.github.io/word-metro/?race=1). Two browser Demo wallets signed on Studionet. XOLD and XORD were missing, so the first route was recorded without advancing the race. The exact replay reverted and added no receipt. COLD → CORD → CARD → WARD → WARM then certified and locked the winner.
+
+Run `node scripts/verify.mjs` to recheck the source, the deployment, the four signed race transactions and latest-final state. See the [readback and receipts](evidence/studionet.json) and the [viewport test notes](evidence/VIEWPORTS.md). Live extension signing and physical-device testing were outside the browser evidence.
